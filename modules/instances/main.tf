@@ -32,9 +32,5 @@ resource "google_compute_instance" "service_instances" {
     }
   }
 
-  tags = concat([
-    var.ssh_network_tag,
-    var.node_exporter_network_tag
-    ],
-  each.value.additional_tags)
+  tags = concat(var.common_network_tags, each.value.additional_tags)
 }

@@ -24,14 +24,9 @@ variable "machines_desired_status" {
   default     = "RUNNING"
 }
 
-variable "ssh_network_tag" {
-  description = "The target tag to open SSH service ports"
-  type        = string
-}
-
-variable "node_exporter_network_tag" {
-  description = "The target tag to open Node Exporter service ports"
-  type        = string
+variable "common_network_tags" {
+  description = "The target network tags that will be applied to all instances"
+  type        = list(string)
 }
 
 variable "instances" {
