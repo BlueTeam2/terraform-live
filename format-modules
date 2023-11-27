@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -euo pipefail
+
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+export SCRIPT_DIR
+
+DIRECTORIES=$(find "$SCRIPT_DIR/environments" "$SCRIPT_DIR/modules" -maxdepth 1 -type d -exec test -e "{}/main.tf" \; -print)
+
+echo -e '🧻 The following modules will be automatically formatted and documentation will be generated for them:\n'
+echo "$DIRECTORIES"
+echo
+
+
+if ! terraform-docs &>/dev/null; then
+    echo "🤯 terraform-docs cannot be found, skip generating of documentation!"
+    echo '😴 Formatting has been completed successfully!'
+    exit 0
+fi
+
+for dir in $DIRECTORIES; do
+    terraform fmt "$dir" 1>/dev/null
+    terraform-docs markdown "$dir" > "$dir/README.md"
+done
+
+echo '🥳 Success, everything has been updated!'
