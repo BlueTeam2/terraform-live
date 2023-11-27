@@ -11,5 +11,5 @@ resource "google_compute_firewall" "ingress_rules" {
   }
 
   target_tags   = [each.value.name]
-  source_ranges = ["0.0.0.0"]
+  source_ranges = ["0.0.0.0/0"]
 }
