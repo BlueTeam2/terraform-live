@@ -13,7 +13,7 @@ module "vpc" {
   source  = "../../modules/vpc"
   project = var.project
   env     = local.env
-  region  = "us-west1"
+  region  = "us-central1"
 }
 
 module "firewall" {
@@ -58,7 +58,7 @@ module "instances" {
   project = var.project
   env     = local.env
   subnet  = module.vpc.subnet
-  zone    = "us-west1-a"
+  zone    = "us-central1-a"
 
   ssh_network_tag           = module.firewall.services_target_tags["allow_ssh"]
   node_exporter_network_tag = module.firewall.services_target_tags["allow_node_exporter"]
