@@ -60,8 +60,7 @@ module "instances" {
   subnet  = module.vpc.subnet
   zone    = "us-west1-a"
 
-  ssh_network_tag           = module.firewall.services_target_tags["allow_ssh"]
-  node_exporter_network_tag = module.firewall.services_target_tags["allow_node_exporter"]
+  common_network_tags = [module.firewall.services_target_tags["allow_ssh"], module.firewall.services_target_tags["allow_node_exporter"]]
   instances = {
     postgres = {
       machine_type    = "e2-micro"
