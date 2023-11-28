@@ -12,6 +12,7 @@ echo -e '🧻 The following modules will be automatically formatted and document
 echo "$DIRECTORIES"
 echo
 
+
 if ! terraform-docs &>/dev/null; then
     echo "🤯 terraform-docs cannot be found, skip generating of documentation!"
     echo '😴 Formatting has been completed successfully!'
